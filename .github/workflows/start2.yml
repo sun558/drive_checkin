@@ -1,15 +1,15 @@
-name: Action1
+name: Action2
 
 on:
   schedule:
-    - cron: 00 8 * * *
+    - cron: 00 7 * * *
   workflow_dispatch:
 
 jobs:
   build:
     strategy:
       matrix:
-        group: [group_1]
+        group: [group_2]
     runs-on: ubuntu-latest
     environment: ${{ matrix.group }}
 
