@@ -221,6 +221,8 @@ const main = async () => {
       }
     }
 	accountIndex--;
+
+  
     userNameInfo = mask(firstUserName, 3, 7);
     const capacityChange = familyCapacitySize2 - familyCapacitySize;
    
@@ -261,17 +263,17 @@ const main = async () => {
       `个人容量 +${((cloudCapacityInfo2.totalSize - userSizeInfoInitial.cloudCapacityInfo.totalSize)/
 				1024 /
 				1024 
-			).toFixed(0)}M 家庭容量 +${capacityChange / 1024 / 1024}M 签到 ${acquireFamilyTotalSize.length}/${accountIndex}次`
+			).toFixed(0)}M 家庭容量 +${capacityChange / 1024 / 1024}M 签到 ${acquireFamilyTotalSize.length}/${accountIndex}次             `
     );
     logger.log("");
   
-  
-  // 错误信息
+  	 // 错误信息
   if (errorMessages.length > 0) {
     originalLog(' ');
     originalLog('错误信息:');
     errorMessages.forEach(msg => originalLog(msg));
   }
+ 
 };
 
 (async () => {
@@ -285,7 +287,7 @@ const main = async () => {
 	const target = ["家庭容量"];
 	const targetIndex = content.indexOf(target);
 	const startIndex = targetIndex + target.length;
-	const contentDel = content.substring(startIndex+1, startIndex + 28);
+	const contentDel = content.substring(startIndex+1, startIndex + 30);
     push(`${userNameInfo}天翼家庭${contentDel}`,  content);
   }
 })();
