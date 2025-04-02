@@ -22,10 +22,10 @@ const originalLog = (message) => {
     logger.log(message);
   };
 
-const doTask = async (cloudClient,acquireFamilyTotalSize) => {
+const doTask = async (cloudClient,acquireFamilyTotalSize,errorMessages,userNameInfo) => {
   let result = [];
   let signPromises1 = [];
-  let getSpace = [`${firstSpace}签到个人云获得(M)`];
+  let getSpace = [`${firstSpace}个人获得(M)`];
 
   if (process.env.PRIVATE_ONLY_FIRST != "true" || i == 1) {
     for (let m = 0; m < process.env.PRIVATE_THREADX; m++) {
@@ -36,7 +36,9 @@ const doTask = async (cloudClient,acquireFamilyTotalSize) => {
             if (!res1.isSign) {
               getSpace.push(` ${res1.netdiskBonus}`);
             }
-          } catch (e) {}
+          } catch (e) {
+			  errorMessages.push(`${accountIndex}. 账号 ${userNameInfo} 错误: 个人未能签到`);
+		  }
         })()
       );
     }
@@ -47,12 +49,19 @@ const doTask = async (cloudClient,acquireFamilyTotalSize) => {
   }
 
   signPromises1 = [];
-  getSpace = [`${firstSpace}获得(M)`];
+  getSpace = [`${firstSpace}家庭获得(M)`];
   const { familyInfoResp } = await cloudClient.getFamilyList();
-  if (familyInfoResp) {
+  if (!familyInfoResp) {
+	  errorMessages.push(`${accountIndex}. 账号 ${userNameInfo} 错误: 未能获取家庭信息`)
+      return result;
+    }
+ 
     const family = familyInfoResp.find((f) => f.familyId == FAMILY_ID);
-    if (!family) return result;
-    result.push(`${firstSpace}开始签到家庭云 ID: ${family.familyId}`);
+    if (!family) {
+		errorMessages.push(`${accountIndex}. 账号 ${userNameInfo} 错误: 没有加入指定家庭组`);
+		return result;
+	};
+    // result.push(`${firstSpace}开始签到家庭云 ID: ${family.familyId}`);
     for (let i = 0; i < 1; i++) {
       signPromises1.push(
         (async () => {
@@ -62,7 +71,9 @@ const doTask = async (cloudClient,acquireFamilyTotalSize) => {
               getSpace.push(` ${res.bonusSpace}`);
 			   acquireFamilyTotalSize.push(` ${res.bonusSpace}`);
             }
-          } catch (e) {}
+          } catch (e) {
+			  errorMessages.push(`${accountIndex}. 账号 ${userNameInfo} 错误: 家庭未能签到`);
+		  }
         })()
       );
     }
@@ -71,7 +82,7 @@ const doTask = async (cloudClient,acquireFamilyTotalSize) => {
 
     if (getSpace.length == 1) getSpace.push(" 0");
     result.push(getSpace.join(""));
-  }
+  
   return result;
 };
 
@@ -156,7 +167,7 @@ const main = async () => {
 			userSizeInfoInitial = await cloudClient.getUserSizeInfo();
 		}
 
-        const result = await doTask(cloudClient,acquireFamilyTotalSize);
+        const result = await doTask(cloudClient,acquireFamilyTotalSize,errorMessages,userNameInfo);
         result.forEach((r) => console.log(r));
 
         let {
@@ -274,7 +285,7 @@ const main = async () => {
 	const target = ["家庭容量"];
 	const targetIndex = content.indexOf(target);
 	const startIndex = targetIndex + target.length;
-	const contentDel = content.substring(startIndex+1, startIndex + 30);
+	const contentDel = content.substring(startIndex+1, startIndex + 28);
     push(`${userNameInfo}天翼家庭${contentDel}`,  content);
   }
 })();
