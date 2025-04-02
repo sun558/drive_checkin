@@ -205,7 +205,7 @@ const main = async () => {
 		}`);
         if (e.code === "ETIMEDOUT") throw e;
       } finally {
-        console.log("");
+        console.log(" ");
 		accountIndex++;
       }
     }
