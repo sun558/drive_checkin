@@ -41,7 +41,7 @@ jobs:
 
       - name: 执行
         run: |
-          npm install >/dev/null 2>&1
+          npm install 
           npm start
 
       - name: Delete old workflow run
