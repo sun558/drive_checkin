@@ -247,10 +247,10 @@ const main = async () => {
       ).toFixed(2)}G`
     );
 	 logger.log(
-      `个人 +${((cloudCapacityInfo2.totalSize - userSizeInfoInitial.cloudCapacityInfo.totalSize)/
+      `个人容量 +${((cloudCapacityInfo2.totalSize - userSizeInfoInitial.cloudCapacityInfo.totalSize)/
 				1024 /
 				1024 
-			).toFixed(0)}M 家庭 +${capacityChange / 1024 / 1024}M 签到 ${acquireFamilyTotalSize.length}/${accountIndex} 次`
+			).toFixed(0)}M 家庭容量 +${capacityChange / 1024 / 1024}M 签到 ${acquireFamilyTotalSize.length}/${accountIndex}次`
     );
     logger.log("");
   
@@ -271,10 +271,10 @@ const main = async () => {
     const events = recording.replay();
     const content = events.map((e) => `${e.data.join("")}`).join("  \n");
 	const userNameInfo =  mask(firstUserName, 3, 7).slice(7, 12);
-	const target = ["M 家庭"];
+	const target = ["家庭容量"];
 	const targetIndex = content.indexOf(target);
 	const startIndex = targetIndex + target.length;
 	const contentDel = content.substring(startIndex+1, startIndex + 20);
-    push(`${userNameInfo}天翼${contentDel}`,  content);
+    push(`${userNameInfo}天翼家庭${contentDel}`,  content);
   }
 })();
