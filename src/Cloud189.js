@@ -270,7 +270,7 @@ const main = async () => {
     logger.log("\n\n");
     const events = recording.replay();
     const content = events.map((e) => `${e.data.join("")}`).join("  \n");
-	const userNameInfo =  mask(firstUserName, 3, 7).slice(9, 12);
+	const userNameInfo =  mask(firstUserName, 3, 7).slice(7, 12);
 	const target = ["M 家庭"];
 	const targetIndex = content.indexOf(target);
 	const startIndex = targetIndex + target.length;
