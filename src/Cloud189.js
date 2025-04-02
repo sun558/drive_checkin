@@ -274,7 +274,7 @@ const main = async () => {
 	const target = ["家庭容量"];
 	const targetIndex = content.indexOf(target);
 	const startIndex = targetIndex + target.length;
-	const contentDel = content.substring(startIndex+1, startIndex + 20);
+	const contentDel = content.substring(startIndex+1, startIndex + 28);
     push(`${userNameInfo}天翼家庭${contentDel}`,  content);
   }
 })();
