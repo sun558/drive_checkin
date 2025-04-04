@@ -270,7 +270,7 @@ const main = async () => {
   	 // 错误信息
   if (errorMessages.length > 0) {
     originalLog(' ');
-    originalLog('错误信息'+errorMessages.length+"个: ");
+    originalLog('错误信息'+errorMessages.length+'个: ');
     errorMessages.forEach(msg => originalLog(msg));
   }
  
