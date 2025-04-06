@@ -263,7 +263,7 @@ const main = async () => {
       `个人容量 +${((cloudCapacityInfo2.totalSize - userSizeInfoInitial.cloudCapacityInfo.totalSize)/
 				1024 /
 				1024 
-			).toFixed(0)}M 家庭容量 +${capacityChange / 1024 / 1024}M 签到 ${acquireFamilyTotalSize.length}/${accountIndex}次             `
+			).toFixed(0)}M 家庭容量 +$${(capacityChange / 1024 / 1024/1024).toFixed(2)}G 签到 ${acquireFamilyTotalSize.length}/${accountIndex}次             `
     );
     logger.log("");
   
