@@ -9,7 +9,7 @@ jobs:
   build:
     strategy:
       matrix:
-        group: [group_1]
+        group: [user10]
     runs-on: ubuntu-latest
     environment: ${{ matrix.group }}
 
