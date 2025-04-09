@@ -150,7 +150,7 @@ const main = async () => {
       } catch (e) {
         console.error("操作失败:", e.message); // 只记录错误消息
 		errorMessages.push( `${accountIndex}. 账号 ${userNameInfo} 错误: ${
-		typeof e === "string" ? e : e.message || "未知错误"
+				e.message || '无详细错误信息'
 		}`);
       }
 
@@ -212,9 +212,12 @@ const main = async () => {
       } catch (e) {
         console.error(e);
 		errorMessages.push( `${accountIndex}. 账号 ${userNameInfo} 错误: ${
-			typeof e === "string" ? e : e.message || "未知错误"
+			e.message || '无详细错误信息'
 		}`);
-        if (e.code === "ETIMEDOUT") throw e;
+        if (e.code === "ETIMEDOUT") {
+			errorMessages.push( `${accountIndex}. 账号 ${userNameInfo} 错误: 请求超时`);
+			throw e
+		};
       } finally {
         console.log(" ");
 		accountIndex++;
