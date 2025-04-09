@@ -216,7 +216,7 @@ const main = async () => {
 		}`);
         if (e.code === "ETIMEDOUT") {
 			errorMessages.push( `${accountIndex}. 账号 ${userNameInfo} 错误: 请求超时`);
-			throw e
+			throw e;
 		};
       } finally {
         console.log(" ");
