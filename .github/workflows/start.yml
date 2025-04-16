@@ -1,8 +1,8 @@
 name: Action
 
 on:
-  schedule:
-    - cron: 30 21 * * *
+ ## schedule:
+ ##   - cron: 30 21 * * *
   workflow_dispatch:
 
 jobs:
